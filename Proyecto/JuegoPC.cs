@@ -4,12 +4,14 @@
     {
         // Variables globales
         static string idJugador;
-        static string aventureros;
+        static string aventurero;
         static string mapa;
-        static int vida;
-        static int ataque;
+        static int saludDefinida;
+        static int saludPoints;
+        static int attackPawer;
         static string menu = ""; // Inicializamos con un valor predeterminado
-        static int enemigosDerrotados = 0;
+        static int defeatedEnemigos = 0;
+        static int vidaEnemigo;
         static Random cofre = new Random();
 
         static void Main()
@@ -30,7 +32,7 @@
             }
         }
 
-        static int IniciarAventura()
+        static string IniciarAventura()
         {
             Console.WriteLine("\t\t\t===============================\t\t");
             Console.WriteLine("\t\t\t\tJUEGO DE AVENTURA\t\t\t\t");
@@ -60,26 +62,29 @@
             while (true)
             {
                 string opcion = Console.ReadLine() ?? "";
-                if (int.TryParse(opcion, out int aventurero))
+                if (int.TryParse(opcion, out int aventureroSeleccionado))
                 {
-                    switch (aventurero)
+                    switch (aventureroSeleccionado)
                     {
                         case 1:
-                            aventureros = "Mago";
-                            vida = 100;
-                            ataque = 20;
+                            aventurero = "Mago";
+                            saludDefinida = 100;
+                            saludPoints = 100;
+                            attackPawer = 20;
                             break;
 
                         case 2:
-                            aventureros = "Caballero";
-                            vida = 70;
-                            ataque = 30;
+                            aventurero = "Caballero";
+                            saludDefinida = 70;
+                            saludPoints = 70;
+                            attackPawer = 30;
                             break;
 
                         case 3:
-                            aventureros = "Arquera";
-                            vida = 85;
-                            ataque = 25;
+                            aventurero = "Arquera";
+                            saludDefinida = 85;
+                            saludPoints = 85;
+                            attackPawer = 25;
                             break;
 
                         default:
@@ -98,7 +103,7 @@
 
         static string SeleccionMapa()
         {
-            Console.WriteLine($"Ahora eres el/la {aventureros} {idJugador}");
+            Console.WriteLine($"Ahora eres el/la {aventurero} {idJugador}");
             Console.ReadLine();
             Console.Clear();
             Console.WriteLine("¡Muy bien! verás, este camino se divide en otros tres caminos, deberás superarlos.");
@@ -146,19 +151,19 @@
 
         static string MenuJuego()
         {
-            while (vida > 0 && enemigosDerrotados < 3)
+            while (saludPoints > 0 && defeatedEnemigos < 3)
             {
                 Console.WriteLine("\t\t\t===MENU PRINCIPAL DEL AVENTURERO===");
                 Console.WriteLine($"El camino que elegiste fue: {mapa}");
-                Console.WriteLine($"Tu tienes los poderes de un/a {aventureros}");
-                Console.WriteLine($"Tus puntos de vida son: {vida}");
-                Console.WriteLine($"Tu poder de ataque es de: {ataque}");
-                Console.WriteLine($"Has derrotado a: {enemigosDerrotados}");
+                Console.WriteLine($"Tu tienes los poderes de un/a {aventurero}");
+                Console.WriteLine($"Tus puntos de vida son: {saludPoints}");
+                Console.WriteLine($"Tu poder de ataque es de: {attackPawer}");
+                Console.WriteLine($"Has derrotado a: {defeatedEnemigos}");
                 Console.WriteLine("\n\n¿Qué deseas hacer?");
                 Console.WriteLine("\n (1) Continuar la aventura.");
                 Console.WriteLine("\n (2) Rendirte.");
                 string decisionContinuacion = Console.ReadLine() ?? "";
-                if (int.TryParse(decisionContinuacion, out int decision))
+                if (int.TryParse(decisionContinuacion, out int decision) && decision == 1 || decision == 2)
                 {
                     switch (decision)
                     {
