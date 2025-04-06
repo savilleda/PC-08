@@ -40,6 +40,7 @@
             //Cuando el jugador haya superado los 3 combates el juego terminará y le dará un emovito mensaje
                 if (enemigosAbatidos >= 3)
                 {
+                    Console.WriteLine("");
                     Console.WriteLine("Wow! Eres increíble jugador eres toda una leyenda");
                     Console.WriteLine($"¡Felicidades {idJugador}! Has derrotado a todos los enemigos y has ganado la aventura.");
                     Console.WriteLine("Grandalf el Gris siempre creyó en ti. ¡Hasta la próxima!");
@@ -345,7 +346,7 @@
                             saludPuntos -= 10;
                             Console.WriteLine("Vamos aventurero te llevare al cofre, aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa *se cae*");
                             Console.WriteLine("Cuidado aventurero no pises ahi porque hay una trampa *cae en la trampa tambien*, perdon aventurero no me fije en la trampa");
-                            Console.WriteLine("2 cosas, una buena y una mala, la buena fue que podemos seguir con la aventura y la mala es que rompimos el cofre al caer  y pierdes "+saludPuntos+" pts de vida jeje");
+                            Console.WriteLine("2 cosas, una buena y una mala, la buena fue que podemos seguir con la aventura y la mala es que rompimos el cofre al caer  y pierdes 10 pts de vida jeje");
                             break;
                         }
                      return;
