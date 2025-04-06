@@ -339,7 +339,7 @@
 
                             case 3:
                             saludPuntos -= 5;
-                            Console.WriteLine($"Hay días en los que amanecemos con le pie derecho...Gandalf cree que hoy no es tu día. Ahors tienen 5 puntos de vida menos.");
+                            Console.WriteLine($"Hay días en los que amanecemos con el pie derecho...Gandalf cree que hoy no es tu día. Ahora tienen 5 puntos de vida menos.");
                             break;
 
                             case 4:
@@ -374,7 +374,7 @@
 
                             case 3:
                             saludPuntos -= 5;
-                            Console.WriteLine($"Hay días en los que amanecemos con le pie derecho...Gandalf cree que hoy no es tu día. Ahors tienen 5 puntos de vida menos.");
+                            Console.WriteLine($"Hay días en los que amanecemos con el pie derecho...Gandalf cree que hoy no es tu día. Ahora tienen 5 puntos de vida menos.");
                             break;
                         }
                          return;
@@ -402,13 +402,13 @@
 
                             case 3:
                             saludPuntos -= 5;
-                            Console.WriteLine($"Hay días en los que amanecemos con le pie derecho...Gandalf cree que hoy no es tu día. Ahors tienen 5 puntos de vida menos.");
+                            Console.WriteLine($"Hay días en los que amanecemos con el pie derecho...Gandalf cree que hoy no es tu día. Ahora tienen 5 puntos de vida menos.");
                             break;
 
                             case 4:
                             Console.WriteLine("Mira aventurero, encontramos el cofreo, abrelo para ver que contiene");
                             Console.ReadLine();
-                            Console.WriteLine("UPSSS......JAJAJA perdón aventurero pero el cofre esta vacío, pero no te preocupes, ¡la aventura sigue!");
+                            Console.WriteLine("UPSSS......JAJAJA perdón aventurero pero el cofre está vacío, pero no te preocupes, ¡la aventura sigue!");
                             break;
                         }
                          return;
