@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\veget\\OneDrive\\Escritorio\\pc-programa\\Pc-08\\Proyecto\\PC-08\\Proyecto\\Proyecto.csproj": {}
+    "C:\\Users\\veget\\OneDrive\\Escritorio\\pc-programa\\Pc-08\\Proyecto\\PC-08\\Proyecto\\.--force\\.--force.csproj": {}
   },
   "projects": {
-    "C:\\Users\\veget\\OneDrive\\Escritorio\\pc-programa\\Pc-08\\Proyecto\\PC-08\\Proyecto\\Proyecto.csproj": {
+    "C:\\Users\\veget\\OneDrive\\Escritorio\\pc-programa\\Pc-08\\Proyecto\\PC-08\\Proyecto\\.--force\\.--force.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\veget\\OneDrive\\Escritorio\\pc-programa\\Pc-08\\Proyecto\\PC-08\\Proyecto\\Proyecto.csproj",
-        "projectName": "Proyecto",
-        "projectPath": "C:\\Users\\veget\\OneDrive\\Escritorio\\pc-programa\\Pc-08\\Proyecto\\PC-08\\Proyecto\\Proyecto.csproj",
+        "projectUniqueName": "C:\\Users\\veget\\OneDrive\\Escritorio\\pc-programa\\Pc-08\\Proyecto\\PC-08\\Proyecto\\.--force\\.--force.csproj",
+        "projectName": ".--force",
+        "projectPath": "C:\\Users\\veget\\OneDrive\\Escritorio\\pc-programa\\Pc-08\\Proyecto\\PC-08\\Proyecto\\.--force\\.--force.csproj",
         "packagesPath": "C:\\Users\\veget\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\veget\\OneDrive\\Escritorio\\pc-programa\\Pc-08\\Proyecto\\PC-08\\Proyecto\\obj\\",
+        "outputPath": "C:\\Users\\veget\\OneDrive\\Escritorio\\pc-programa\\Pc-08\\Proyecto\\PC-08\\Proyecto\\.--force\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
