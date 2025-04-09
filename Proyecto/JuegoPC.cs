@@ -141,24 +141,25 @@
 
             while (true)
             {
-                //En esta parte el jugador selecciona el mapa en el que jugará
+                //En esta parte el jugador selecciona el mapa en el que jugará, cada mapa tiene una condición diferente
                 opcionMapa = Console.ReadLine() ?? "";
                 if (int.TryParse(opcionMapa, out int mapaSeleccion))
                 {
                     switch (mapaSeleccion)
                     {
+                        //El mapa que escogió es el bosque oscuro y podrá caer en trampas
                         case 1:
                             opcionMapa = "Bosque oscuro";
                             break;
-
+                        //El mapa que escogió es la cueva sombría y los enemigos atacan primero
                         case 2:
                             opcionMapa = "Cueva Sombría";
                             break;
-
+                        //El mapa que escogió es el camino de piedra y los cofres pueden estar vacíos pero tiene probabilidad de un loot especial
                         case 3:
                             opcionMapa = "Camino de piedra";
                             break;
-
+                        //Si no selecciona ninguno de los 3 marcará un error y lo hará regresar para volver a seleccionar mapa
                         default:
                             Console.WriteLine("Elige una opción válida (1, 2 o 3).");
                             continue;
@@ -189,20 +190,23 @@
             //Se le muestran las opciones que tiene el jugador, si contínua el jugador entrará en un combate y si se rinde termina el juego
             Console.WriteLine("\n (1) Continuar la aventura.");
             Console.WriteLine("\n (2) Rendirte.");
-
+            //Este while se ejecuta mientras los enemigos derrotados sean menores a 3, de lo contrario lo va a dirijir
             while (saludPuntos > 0 && enemigosAbatidos < 3)
             {
                 //El jugador realiza su decisión, en base a lo que escoga se desplegará un menú
                 string decisionContinuacion = Console.ReadLine() ?? "";
                 if (int.TryParse(decisionContinuacion, out int decision) && (decision == 1 || decision == 2))
                 {
+                    //Este switch evaluá la desción del usuario
                     switch (decision)
                     {
+                        //Si el jugador presiona 1, el juego continuara y se desplegará el menú de combate
                         case 1:
                             Console.WriteLine("¡Vamos a la batalla!");
                             Console.ReadLine();
                             menu = "continuar";
                             return menu;
+                        //Si el jugador presiona 2 el juego terminará automáticante
                         case 2:
                             Console.WriteLine("");
                             Console.WriteLine("No me cabe duda del gran aventurero que eres... pero será a la próxima.");
@@ -211,6 +215,7 @@
                             return menu;
                     }
                 }
+                //Si el jugador no presiona 1 o 2 se le dará la oportunidad de volver a escribir un número, hasta que sea una de las opciones
                 else
                 {
                     Console.WriteLine("Por favor, elige una opción válida (1 o 2).");
@@ -218,46 +223,47 @@
             }
             return menu;
         }
-        //En esté método se muestran los enemigos que habrán por combate
+        //Este método determina los enemigos que habrán por combate, asignando un atributo único para cada monstruo
         static void SeleccionEnemigos ()
         {
-            
+            //Cuando la cantidad de enemigos derrotados sea 0, se la asignará el nombre de bandido, 20 de vida, un daño de 1-5 
+            //Y una probabilidad de spawn de bandidos de 1-3
             if (enemigosAbatidos == 0)
             {
                 CombateDelAventurero("Bandido", 20, random.Next(1,6), random.Next(1,4));
-            }
+            }//Cuando haya ganado el primer combate aparecerá un monstruo, el cual tendrá 25 de vida, un daño de 5-11 y pueden aparecer de 1-2 monstruos
             else if (enemigosAbatidos == 1)
             {
                 CombateDelAventurero("Monstruo", 25, random.Next(5,11), random.Next(1,3));
-            }
+            }//Cuando haya ganado el segundo combate aparecerá el jefe final, el cual tendrá 70 de vida, un daño de 10-21 y aparecerá solo 1 jefe final por partida
             else if (enemigosAbatidos == 2)
             {
                 CombateDelAventurero("Jefe Final", 70, random.Next(10,21), random.Next(1,2));
             }
-            if (menu == "rendirse")
-            {
-                return;
-            }
         }
-        
+            //Este método realiza el combate por turnos 
             static void CombateDelAventurero(string oponente, int puntosDeVidaOponente, int fuerzaDeAtaqueOponente, int cantidadOponentes)
                 {
+                    //Se le da la bienvenida al campo de batalla al jugador, además se le muestra en pantalla el enemigo a vencer y sus atributos 
                     Console.WriteLine("Me gusta tu actitud, es hora de luchar así que a darle con todo");
                     Console.WriteLine($"¡Cuidado! Un enemigo se acerca, es un {oponente} con {puntosDeVidaOponente} puntos de vida y {fuerzaDeAtaqueOponente} puntos de ataque.");
                     Console.ReadLine();
+                    //Si llegan a spawnear más de 1 enemigo en los primeros 2 combates, estos se le anuncian al jugador para que decida que hacer
                     if (cantidadOponentes > 1)
                     {
                         Console.WriteLine($"\n¡Vaya! parece ser que vienen en grupo aventurero, son {cantidadOponentes} {oponente}s");
-                    }
+                    }//Conociendo sus rivales el jugador decide si atacar huir, está opción la tiene durante cada turno que dure el combate
                     Console.WriteLine($"\nSabiendo quién/es es/son tu/s oponente/s, ¿Qué decides?\nGandalf el Gris confía en ti, ¡CON TODO, SE QUE TU PUEDES {idJugador} !");
                     Console.ReadLine();
                         while (saludPuntos > 0 && puntosDeVidaOponente > 0)
                         {
+                            //Si el jugador decide atacar se desplegará la interfaz de combate y si se rinde regresará al menú principal y se le quitarán 10 pts de vida
                             Console.WriteLine($"(1) Atacar al {oponente}.");
                             Console.WriteLine($"(2) ¡HUIR! (-10 puntos de vida).");
                             string destinoCombate = Console.ReadLine() ?? "";
                             if (destinoCombate == "1")
-                            {
+                            {//Cuando el mapa es la cueva sombría los enemigos atacan primero, por lo que el enemigo golpea al enemigo primero y muestra una interacción especial
+                            //Si el enemigo no llega a morir se repeti está instrucción para el contrataque del enemigo
                             if (opcionMapa == "Cueva Sombría") 
                             {
                                 saludPuntos -= fuerzaDeAtaqueOponente * cantidadOponentes;
@@ -265,13 +271,15 @@
                                 Console.WriteLine($"- Recibes {fuerzaDeAtaqueOponente * cantidadOponentes} de daño");
                                 Console.WriteLine($"- Vida restante: {saludPuntos}");
                                 Console.ReadLine();
-                            }
+                            }//En esta parte se muestra el ataque del jugador al oponente, la vida del oponente depende de la cantidad de enemigos que hayan
                             puntosDeVidaOponente = puntosDeVidaOponente*cantidadOponentes;
+                            //Si hay más de un oponente el daño que hará el jugador será igual a la cantidad de oponentes que hay ya que ataca ambos por igual y al mismo tiempo
                             puntosDeVidaOponente -= ataquePuntos * cantidadOponentes;
                             Console.WriteLine($"Atacas a los {oponente}s:");
                             Console.WriteLine($"- Infliges {ataquePuntos * cantidadOponentes} de daño");
                             Console.WriteLine($"- Vida enemiga restante: {puntosDeVidaOponente}");
                             Console.ReadLine();
+                            //Luego se muestra el contrataque del enemigo, siempre y cuando sea el primer y tercer mapa, si no regresa a la instrucción anterior
                             if (opcionMapa != "Cueva Sombría" && puntosDeVidaOponente>0) 
                             {
                                 saludPuntos -= fuerzaDeAtaqueOponente * cantidadOponentes;
@@ -279,62 +287,66 @@
                                 Console.WriteLine($"- Recibes {fuerzaDeAtaqueOponente * cantidadOponentes} de daño");
                                 Console.WriteLine($"- Vida restante: {saludPuntos}");
                                 Console.ReadLine();
-                            }
+                            }//Si la salud del enemigo es 0 o menor, se mostrará un menú indicando que lo derroto y el contador de enemigos derrotados aumentará en uno
                             if (puntosDeVidaOponente <= 0)
                             {
                                 enemigosAbatidos++;
                                 Console.WriteLine($"¡Has derrotado a los {oponente}s!"+"; Ahorra llevas "+enemigosAbatidos+" enemigos abatidos");
                                 CofreDelTesoro();
-                            }
+                            }//Si la salud del jugador llega a 0 o menor, mostrará un mensaje de que murió y perderá automáticamente
                             else if (saludPuntos <= 0)
                             {
                                 Console.WriteLine($"¡Has sido derrotado por los {oponente}s!");
                                 menu = "rendirse";
                                 return;
                             }
-                            }
+                            }//Si el jugador decide huir se le quitarán 10 puntos de vida y regresará al menú principal
                     else if (destinoCombate == "2")
                     {
                         Console.WriteLine($"\nGandalf te entiende {idJugador}, a mí también me daría miedo. \nSin embargo, toda decisión tiene sus consecuencias, sales feliz y contento pero con 10 puntos menos de vida.");
                         saludPuntos -= 10;
                         return;
-                    }
+                    }//Si el jugador no selecciona una opción que no es 1 o 2, se le dará la opción de seleccionar otra vez un número, esto ocurrirá hasta que seleccione una de las 2 opciones
                     else
                     {
                         Console.WriteLine("Elige una opción válida (1 o 2).");
                     }
                      
                     }
-                }
+                }//Este método enseña el funcionamiento de los cofres
             static void CofreDelTesoro()
                 {
+                    //Si el enemigo ya derrotó al jefe final no tendrá la opción de abrir cofres
                     if(enemigosAbatidos==3)return;
+                    //Se le dará la bienvenida a la interfaz de cofres, en esta decidirá si abrirlos o no
                     Console.WriteLine("Lo prometido es deuda grandioso aventurero, ¡un cofre del tesoro!");
                     Console.WriteLine("Grandalf ama los cofres del tesoro, pero es tu decisión abrirlo o no.");
                     Console.WriteLine("¿Deseas abrirlo? ((1)si / (2)no)");
                     while (true)
                     {
                     string decisionCofre = Console.ReadLine() ?? "";
+                    //Si el mapa es el bosque oscuro, le podrán tocar 14 puntos de vida en la poción, 12 de daño, podrá caer en una trampa, la cual le quitará 10 de vida
+                    //O le pueden quitar 5 de vida, todo esto funciona con un random, ya que cada loot tiene una probabilidad del 25%, además en este mapa las cosas que le pueden tocar están potenciadas
                     if (decisionCofre == "1" && opcionMapa=="Bosque oscuro")
                     {
                         int tesoro = random.Next(1, 5);
                         switch (tesoro)
                         {
                             case 1:
-                            saludPuntos += 10;
+                            saludPuntos += 14;
                             if(saludPuntos>=saludDefinida)
                             {
                             Console.WriteLine("Epaaaaa aventurero, con que haciendo trampa eh, no puedes tener más vida que al inicio del juego, actualmente tienes "+ saludPuntos+" pts de vida");
                             saludPuntos = saludPuntos-(saludPuntos-saludDefinida);
                             Console.WriteLine("Correjido, al viejo Gandalf no se le escapa nada eh, ahora tienes "+saludPuntos+" pts de vida");
                             }else if(saludPuntos<saludDefinida){
-                            Console.WriteLine($" Menos mal que tu fiel amigo Gandalf rezó por ti...\nHas ganado 10 puntos de vida. Un regalito de los dioses de la aventura.");
+                            Console.WriteLine($" Menos mal que tu fiel amigo Gandalf rezó por ti...\nHas ganado 14 puntos de vida. Un regalito de los dioses de la aventura.");
                             }
                             break;
 
                             case 2:
-                            ataquePuntos += 7;
-                            Console.WriteLine($"¡Increíble! Has encontrado un arma mágica...\nHas ganado 7 puntos de ataque. ¡Tus enemigos temblarán ante ti!");
+                            ataquePuntos += 12;
+                            Console.WriteLine($"¡Increíble! Has encontrado un arma mágica...\nHas ganado 12 puntos de ataque. ¡Tus enemigos temblarán ante ti!");
                             break;
 
                             case 3:
@@ -350,6 +362,7 @@
                             break;
                         }
                      return;
+                     //Si el mapa es la cueva sombría, tiene solo 3 posibles recompenzas, curarse 10 de vida, un aumento de 7 puntos de daño o le podrán quitar 5 de vida
                     }else if(decisionCofre == "1" && opcionMapa=="Cueva Sombría")
                      {
                         int tesoro = random.Next(1, 4);
@@ -378,6 +391,7 @@
                             break;
                         }
                          return;
+                         //En el camino de piedra el aventurero tiene un 25% de caer en una trampa, las demás cosas que le pueden tocar son: curarse 10 de vida, un aumento de 7 puntos de daño o le podrán quitar 5 de vida
                      }else if (decisionCofre == "1" && opcionMapa=="Camino de piedra")
                      {
                         int tesoro = random.Next(1, 4);
@@ -412,11 +426,12 @@
                             break;
                         }
                          return;
+                         //Si el jugador presiona 2, es porque no quiere abrir ningún cofre, esto aplica para los 3 mapas
                     }else if(decisionCofre== "2")
                     {
                      Console.WriteLine("Con que estamos confiados aventurero, me gusta esa actitud, solo espero que no te arrepientas luego");
                      break;
-                    }
+                    }//Si el jugador no presiona 1 o 2, se le dará la opción de volver a intentarlo, hasta que seleccione una opción válida 
                     else
                     {
                         Console.WriteLine("Elige una opción válida (1 o 2)");   
