@@ -1,6 +1,6 @@
 ﻿namespace JuegoDeAventura
 {
-    class Program
+    class PrimerProyecto
     {
         //Variables generales del programa
         public static string idJugador = "";
@@ -32,7 +32,7 @@
 
                     if (menu == "rendirse")
                     {
-                        //El juego terminará si el jugador se riende
+                        //El juego terminará si el jugador se rinde
                         Console.WriteLine("Gracias por jugar. ¡Hasta la próxima!");
                         break;
                     }
@@ -168,7 +168,7 @@
                 }
                 else
                 {
-                    //Si el jugador presiona sin queres un número o una tecla que no es permitida tiene la opción de volver a intentar 
+                    //Si el jugador presiona sin querer un número o una tecla que no es permitida tiene la opción de volver a intentar 
                     Console.WriteLine($"Elige un mapa. No te preocupes {idJugador}, confía en tu grandioso Gandalf el Gris, todo estará bien.");
                 }
             }
@@ -176,8 +176,8 @@
         //Esté método muestra el menú del juego, este aparecerá luego de escoger el personaje y el mapa
         static string MenuJuego(string menu)
         {
-            //En esta parte se mostrará el camino escogido, los enemigoss que lleva derrotados el jugador, el mapa escogido
-            //La vida que posee, la clase de personaje que escogió y su poder de ataque 
+            /*En esta parte se mostrará el camino escogido, los enemigoss que lleva derrotados el jugador, el mapa escogido
+            La vida que posee, la clase de personaje que escogió y su poder de ataque*/ 
             Console.WriteLine("\t\t\t===MENU PRINCIPAL DEL AVENTURERO===");
             Console.WriteLine($"El camino que elegiste fue: {opcionMapa}");
             Console.WriteLine($"Tu tienes los poderes de un/a {aventurero}");
@@ -190,14 +190,14 @@
             //Se le muestran las opciones que tiene el jugador, si contínua el jugador entrará en un combate y si se rinde termina el juego
             Console.WriteLine("\n (1) Continuar la aventura.");
             Console.WriteLine("\n (2) Rendirte.");
-            //Este while se ejecuta mientras los enemigos derrotados sean menores a 3, de lo contrario lo va a dirijir
+            //Este while se ejecuta mientras los enemigos derrotados sean menores a 3, de lo contrario lo va a dirijir al men[u correspondiente (de victoria o derrota)
             while (saludPuntos > 0 && enemigosAbatidos < 3)
             {
                 //El jugador realiza su decisión, en base a lo que escoga se desplegará un menú
                 string decisionContinuacion = Console.ReadLine() ?? "";
                 if (int.TryParse(decisionContinuacion, out int decision) && (decision == 1 || decision == 2))
                 {
-                    //Este switch evaluá la desción del usuario
+                    //Este switch evaluá la desición del usuario
                     switch (decision)
                     {
                         //Si el jugador presiona 1, el juego continuara y se desplegará el menú de combate
@@ -223,11 +223,11 @@
             }
             return menu;
         }
-        //Este método determina los enemigos que habrán por combate, asignando un atributo único para cada monstruo
+        //Este método determina los enemigos que habrán por combate, asignando un atributo único para cada enemigo
         static void SeleccionEnemigos ()
         {
-            //Cuando la cantidad de enemigos derrotados sea 0, se la asignará el nombre de bandido, 20 de vida, un daño de 1-5 
-            //Y una probabilidad de spawn de bandidos de 1-3
+            /*Cuando la cantidad de enemigos derrotados sea 0, se la asignará el nombre de bandido, 20 de vida, un daño de 1-5 
+            Y una probabilidad de spawn de bandidos de 1-3*/
             if (enemigosAbatidos == 0)
             {
                 CombateDelAventurero("Bandido", 20, random.Next(1,6), random.Next(1,4));
@@ -262,8 +262,9 @@
                             Console.WriteLine($"(2) ¡HUIR! (-10 puntos de vida).");
                             string destinoCombate = Console.ReadLine() ?? "";
                             if (destinoCombate == "1")
-                            {//Cuando el mapa es la cueva sombría los enemigos atacan primero, por lo que el enemigo golpea al enemigo primero y muestra una interacción especial
-                            //Si el enemigo no llega a morir se repeti está instrucción para el contrataque del enemigo
+                            {
+                                /*Cuando el mapa es la cueva sombría los enemigos atacan primero, por lo que el enemigo golpea al enemigo primero y muestra una interacción especial
+                                Si el enemigo no llega a morir se repite está instrucción para el contrataque del enemigo*/
                             if (opcionMapa == "Cueva Sombría") 
                             {
                                 saludPuntos -= fuerzaDeAtaqueOponente * cantidadOponentes;
@@ -273,7 +274,7 @@
                                 Console.ReadLine();
                             }//En esta parte se muestra el ataque del jugador al oponente, la vida del oponente depende de la cantidad de enemigos que hayan
                             puntosDeVidaOponente = puntosDeVidaOponente*cantidadOponentes;
-                            //Si hay más de un oponente el daño que hará el jugador será igual a la cantidad de oponentes que hay ya que ataca ambos por igual y al mismo tiempo
+                            //Si hay más de un oponente el daño que hará el jugador será igual a la cantidad de oponentes que hay, ya que ataca a todos por igual y al mismo tiempo
                             puntosDeVidaOponente -= ataquePuntos * cantidadOponentes;
                             Console.WriteLine($"Atacas a los {oponente}s:");
                             Console.WriteLine($"- Infliges {ataquePuntos * cantidadOponentes} de daño");
@@ -291,7 +292,7 @@
                             if (puntosDeVidaOponente <= 0)
                             {
                                 enemigosAbatidos++;
-                                Console.WriteLine($"¡Has derrotado a los {oponente}s!"+"; Ahorra llevas "+enemigosAbatidos+" enemigos abatidos");
+                                Console.WriteLine($"¡Has derrotado a los {oponente}s!"+"; Ahora llevas "+enemigosAbatidos+" enemigos abatidos");
                                 CofreDelTesoro();
                             }//Si la salud del jugador llega a 0 o menor, mostrará un mensaje de que murió y perderá automáticamente
                             else if (saludPuntos <= 0)
@@ -332,28 +333,34 @@
                         int tesoro = random.Next(1, 5);
                         switch (tesoro)
                         {
+                            //Si el numero generado es 1, el jugador se curará 14 de vida...
                             case 1:
                             saludPuntos += 14;
                             if(saludPuntos>=saludDefinida)
-                            {
+                            { //Este if es para evitar que el jugador se cure más de lo que tiene al inicio del juego, su vida no cambiaría. 
                             Console.WriteLine("Epaaaaa aventurero, con que haciendo trampa eh, no puedes tener más vida que al inicio del juego, actualmente tienes "+ saludPuntos+" pts de vida");
                             saludPuntos = saludPuntos-(saludPuntos-saludDefinida);
                             Console.WriteLine("Correjido, al viejo Gandalf no se le escapa nada eh, ahora tienes "+saludPuntos+" pts de vida");
-                            }else if(saludPuntos<saludDefinida){
+                            }
+                            //Si el jugador no tiene más vida que al inicio del juego, se le dará la opción de curarse.
+                            else if(saludPuntos<saludDefinida){
                             Console.WriteLine($" Menos mal que tu fiel amigo Gandalf rezó por ti...\nHas ganado 14 puntos de vida. Un regalito de los dioses de la aventura.");
                             }
                             break;
 
+                            //Si el número generado es 2, el jugador obtendrá 12 puntos  de ataque.
                             case 2:
                             ataquePuntos += 12;
                             Console.WriteLine($"¡Increíble! Has encontrado un arma mágica...\nHas ganado 12 puntos de ataque. ¡Tus enemigos temblarán ante ti!");
                             break;
 
+                            //Si el número generado es 3, el jugador perderá 5 puntos de vida. 
                             case 3:
                             saludPuntos -= 5;
                             Console.WriteLine($"Hay días en los que amanecemos con el pie derecho...Gandalf cree que hoy no es tu día. Ahora tienen 5 puntos de vida menos.");
                             break;
-
+                            
+                            //Si el número generado es 4, el jugador caerá en una trampa y perderá 10 puntos de vida.
                             case 4:
                             saludPuntos -= 10;
                             Console.WriteLine("Vamos aventurero te llevare al cofre, aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa *se cae*");
@@ -362,29 +369,34 @@
                             break;
                         }
                      return;
-                     //Si el mapa es la cueva sombría, tiene solo 3 posibles recompenzas, curarse 10 de vida, un aumento de 7 puntos de daño o le podrán quitar 5 de vida
+                     //Si el mapa es la cueva sombría, tiene solo 3 posibles recompenzas, curarse 10 de vida, un aumento de 7 puntos de daño o le podrán quitar 5 de vida.
                     }else if(decisionCofre == "1" && opcionMapa=="Cueva Sombría")
                      {
                         int tesoro = random.Next(1, 4);
                         switch (tesoro)
                         {
+                            //Si el número generado es 1, el jugador se curará 10 de vida.
                             case 1:
                             saludPuntos += 10;
                             if(saludPuntos>=saludDefinida)
-                            {
+                            {//Este if es para evitar que el jugador se cure más de lo que tiene al inicio del juego, su vida no cambiaría. 
                             Console.WriteLine("Epaaaaa aventurero, con que haciendo trampa eh, no puedes tener más vida que al inicio del juego, actualmente tienes"+ saludPuntos+" pts de vida");
                             saludPuntos = saludPuntos-(saludPuntos-saludDefinida);
                             Console.WriteLine("Correjido, al viejo Gandalf no se le escapa nada eh, ahora tienes "+saludPuntos+" pts de vida");
-                            }else if(saludPuntos<saludDefinida){
+                            }
+                            //Si el jugador no tiene más vida que al inicio del juego, se le dará la opción de curarse.
+                            else if(saludPuntos<saludDefinida){
                             Console.WriteLine($" Menos mal que tu fiel amigo Gandalf rezó por ti...\nHas ganado 10 puntos de vida. Un regalito de los dioses de la aventura.");
                             }
                             break;
 
+                            //Si el número generado es 2, el jugador obtendrá 12 puntos  de ataque.
                             case 2:
                             ataquePuntos += 7;
                             Console.WriteLine($"¡Increíble! Has encontrado un arma mágica...\nHas ganado 7 puntos de ataque. ¡Tus enemigos temblarán ante ti!");
                             break;
 
+                            //Si el número generado es 3, el jugador perderá 5 puntos de vida.
                             case 3:
                             saludPuntos -= 5;
                             Console.WriteLine($"Hay días en los que amanecemos con el pie derecho...Gandalf cree que hoy no es tu día. Ahora tienen 5 puntos de vida menos.");
@@ -397,6 +409,7 @@
                         int tesoro = random.Next(1, 4);
                         switch (tesoro)
                         {
+                            //Si el número generado es 1, el jugador se curará 10 de vida.
                             case 1:
                             saludPuntos += 10;
                             if(saludPuntos>=saludDefinida)
@@ -409,18 +422,21 @@
                             }
                             break;
 
+                            //Si el número generado es 2, el jugador obtendrá 7 puntos  de ataque.
                             case 2:
                             ataquePuntos += 7;
                             Console.WriteLine($"¡Increíble! Has encontrado un arma mágica...\nHas ganado 7 puntos de ataque. ¡Tus enemigos temblarán ante ti!");
                             break;
 
+                            //Si el número generado es 3, el jugador perderá 5 puntos de vida.
                             case 3:
                             saludPuntos -= 5;
                             Console.WriteLine($"Hay días en los que amanecemos con el pie derecho...Gandalf cree que hoy no es tu día. Ahora tienen 5 puntos de vida menos.");
                             break;
 
+                            //Si el número generado es 4 el cofre estará vacío. 
                             case 4:
-                            Console.WriteLine("Mira aventurero, encontramos el cofreo, abrelo para ver que contiene");
+                            Console.WriteLine("Mira aventurero, encontramos el cofre, abrelo para ver que contiene");
                             Console.ReadLine();
                             Console.WriteLine("UPSSS......JAJAJA perdón aventurero pero el cofre está vacío, pero no te preocupes, ¡la aventura sigue!");
                             break;
